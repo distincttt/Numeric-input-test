@@ -4,7 +4,8 @@ import type { Person } from '@/types/person'
 import PersonAvatar from './PersonAvatar'
 
 export const personPageClassName = 'flex w-full max-w-sm flex-col gap-4'
-export const personNavLinkClassName = 'text-sm text-[var(--color-text-default)] opacity-70 hover:opacity-100 hover:underline transition-opacity duration-200'
+export const personNavLinkClassName =
+  'text-sm text-[var(--color-text-default)] opacity-70 hover:opacity-100 hover:underline transition-opacity duration-200 size-max'
 export const personInputClassName =
   'rounded border-[1.5px] border-[var(--color-numeric-input-default)] p-[8px] text-lg outline-none focus:border-[var(--color-card-hover-border)] hover:border-[var(--color-input-hover-border)] text-[var(--color-numeric-input-default)] focus:text-[var(--color-text-default)] transition-colors duration-200'
 export const personTitleClassName = 'text-xl font-bold text-[var(--color-text-default)]'
