@@ -51,22 +51,6 @@ React + TypeScript + Zustand приложение с редактируемым�
 
 ---
 
-## 🧠 Архитектура
-
-src/
-components/
-NumericInput/
-UserCard/
-store/
-useUserStore.ts
-useSettingsStore.ts
-utils/
-numberFormat.ts
-hooks/
-App.tsx
-
----
-
 ## 🧪 Тестирование
 
 Проект покрыт тестами с использованием:
@@ -86,16 +70,12 @@ App.tsx
 - вставка текста
 - корректный onChange (сырой value)
 
----
-
 #### Settings
 
 - изменение минимального возраста
 - отсутствие фильтрации пользователей
 - приведение значения ниже минимума к допустимому минимуму
 - реактивное обновление через Zustand
-
----
 
 #### User flow
 
