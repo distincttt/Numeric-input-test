@@ -1,16 +1,29 @@
 import { Link, useParams } from 'react-router-dom'
-import { useStore } from '@/store'
+import NumericInput from '@/components/NumericInput'
+import PersonLayout, {
+  personFieldClassName,
+  personInputClassName,
+  personLabelClassName,
+  personNavLinkClassName,
+  personPageClassName,
+  personSecondaryTextClassName,
+} from '@/components/Person/PersonLayout'
+import { useSettingsStore, usePersonStore } from '@/store'
 
 export default function PersonEdit() {
   const { id } = useParams<{ id: string }>()
-  const person = useStore((state) => state.people.find((p) => p.id === Number(id)))
-  const updatePersonAge = useStore((state) => state.updatePersonAge)
+  const person = usePersonStore((state) =>
+    state.persons.find((storedPerson) => storedPerson.id === Number(id))
+  )
+  const updatePersonAge = usePersonStore((state) => state.updatePersonAge)
+  const minimumAgeInHours = useSettingsStore((state) => state.minimumAgeInHours)
+  const ageInputId = 'age-input'
 
   if (!person) {
     return (
       <div>
-        <p className="text-gray-600">Person not found</p>
-        <Link to="/" className="text-violet-600 hover:underline text-sm">
+        <p className={personSecondaryTextClassName}>Person not found</p>
+        <Link to="/" className={personNavLinkClassName}>
           Back to list
         </Link>
       </div>
@@ -18,34 +31,26 @@ export default function PersonEdit() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <Link to="/" className="text-violet-600 hover:underline text-sm">
+    <div className={personPageClassName}>
+      <Link to="/" className={personNavLinkClassName}>
         &larr; Back
       </Link>
 
-      <div className="flex items-center gap-3">
-        <img
-          src="/img.png"
-          alt={person.name}
-          className="w-14 h-14 rounded-full border-2 border-violet-500 object-cover"
-        />
-        <div>
-          <label htmlFor="hours-input" className="block text-sm font-bold tracking-wide text-gray-700">
-            {person.name.toUpperCase()} IS
-          </label>
-          <div className="flex items-center gap-2">
-            <input
-              id="hours-input"
-              type="text"
-              value={person.ageInHours}
-              onChange={(e) => updatePersonAge(person.id, Number(e.target.value) || 0)}
-              className="border border-gray-300 rounded px-2 py-1 text-lg outline-none"
-              placeholder="0"
-            />
-            <span className="text-gray-600">hours old</span>
-          </div>
+      <PersonLayout person={person} labelFor={ageInputId}>
+        <div className={`${personLabelClassName} group-focus-within:text-[var(--color-avatar-active)]`}>{person.name.toUpperCase()} IS</div>
+        <div className={personFieldClassName}>
+          <NumericInput
+            id={ageInputId}
+            aria-label={`${person.name} age in hours`}
+            value={person.ageInHours}
+            minValue={minimumAgeInHours}
+            onChange={(nextAge) => updatePersonAge(person.id, nextAge)}
+            className={personInputClassName}
+            placeholder="0"
+          />
+          <span className={personSecondaryTextClassName}>hours old</span>
         </div>
-      </div>
+      </PersonLayout>
     </div>
   )
 }

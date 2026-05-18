@@ -1,19 +1,154 @@
-Goal
-## Create a numeric input component.
+# Numeric Input Users App
 
-![figma Preview](./public/img.png)
+React + TypeScript + Zustand приложение с редактируемыми пользователями и кастомным числовым инпутом с форматированием.
 
-[Figma](https://www.figma.com/file/OcyCt22I1Ha3fgLzGi0ZZy/Front-end-UI-Task?type=design&node-id=1-4&mode=design&t=ZzZ3vo84xwZ6uxJF-0)
+---
 
-### Functional requirements:
-1. The user should only be able to enter digits.
-2. Groups of 3 digits should be separated by spaces (“1442” → “1 442”).
-3. Starting at a width of 72 px, the input should adapt to the size of the entered value.
+## 🎯 Функциональность
 
-### Design requirements:
-1. Should match the provided [Figma](https://www.figma.com/file/OcyCt22I1Ha3fgLzGi0ZZy/Front-end-UI-Task?type=design&node-id=1-4&mode=design&t=ZzZ3vo84xwZ6uxJF-0).
+### 👤 Пользователи
 
-### Code requirements:
-1. The input component should be usable as-is in other parts of the project.
-2. You can modify this project as you see fit to match a “production-ready” state. (optional)
-3. You can use any library/component that you deem necessary and would use in a real application. (optional)
+- Пользователи отображаются в виде карточек
+- Чтобы редактировать пользователя — нужно **кликнуть по его карточке**
+- После клика открывается режим редактирования
+- Изменения сохраняются в глобальном store (Zustand)
+
+---
+
+### 🔢 NumericInput
+
+Кастомный переиспользуемый компонент числового ввода с форматированием.
+
+#### Поведение:
+
+- Принимает **только цифры (0–9)**
+- Все остальные символы игнорируются
+- Автоматическое форматирование пробелами по 3 цифры справа налево:
+  1442 → 1 442
+  1234567 → 1 234 567
+
+---
+
+#### UX особенности
+
+- Поддержка вставки текста (очистка от всех нецифровых символов)
+- Backspace / Delete работают корректно с учётом пробелов
+- Стрелки и Home/End учитывают форматирование
+- Курсор не прыгает при вводе
+
+---
+
+### ⚙️ Настройки
+
+В приложении есть глобальные настройки:
+
+#### Минимальный возраст (в часах)
+
+- Используется как минимально допустимое значение возраста
+- Управляется через Zustand store
+- Применяется при редактировании пользователя
+- Обновляется в реальном времени
+
+---
+
+## 🧠 Архитектура
+
+src/
+components/
+NumericInput/
+UserCard/
+store/
+useUserStore.ts
+useSettingsStore.ts
+utils/
+numberFormat.ts
+hooks/
+App.tsx
+
+---
+
+## 🧪 Тестирование
+
+Проект покрыт тестами с использованием:
+
+- Vitest
+- React Testing Library
+
+---
+
+### 📌 Что протестировано
+
+#### NumericInput
+
+- ввод только цифр
+- очистка нецифровых символов
+- форматирование с пробелами
+- вставка текста
+- корректный onChange (сырой value)
+
+---
+
+#### Settings
+
+- изменение минимального возраста
+- отсутствие фильтрации пользователей
+- приведение значения ниже минимума к допустимому минимуму
+- реактивное обновление через Zustand
+
+---
+
+#### User flow
+
+- клик по карточке открывает режим редактирования
+- изменение значения сохраняется в store
+- UI обновляется корректно
+
+---
+
+## 🚀 Установка и запуск
+
+### Вариант 1: npm
+
+```bash
+npm install
+npm run dev
+```
+
+### Вариант 2: pnpm
+
+```bash
+pnpm install
+pnpm run dev
+```
+
+### Вариант 3: bun
+
+```bash
+bun install
+bun run dev
+```
+
+Сборка и предпросмотр:
+
+```bash
+npm run build
+npm run preview
+```
+
+Проверки:
+
+```bash
+npm run type-check
+npm run lint
+npm run format
+```
+
+## 🧩 Технологии
+
+- React 19
+- TypeScript
+- Vite
+- Zustand
+- Tailwind CSS
+- Vitest
+- React Testing Library
