@@ -4,6 +4,14 @@ React + TypeScript + Zustand приложение с редактируемым�
 
 ---
 
+## 🌐 Деплой
+
+Приложение доступно по ссылке:
+
+https://numeric-input-test-hazel.vercel.app/
+
+---
+
 ## 🎯 Функциональность
 
 ### 👤 Пользователи
@@ -116,6 +124,8 @@ npm run type-check
 npm run lint
 npm run format
 ```
+
+---
 
 ## 🧩 Технологии
 
